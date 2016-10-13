@@ -106,13 +106,13 @@ class GrassSquare extends Square {
     let doubtedly = Math.floor(Math.random() * 4) === 0;
     let luckily = Math.floor(Math.random() * 2) === 0;
     let somewhatLikely = Math.floor(Math.random() * 3) !== 0;
-    let likely = Math.floor(Math.random() * 8) !== 0;
+    let likely = Math.floor(Math.random() * 9) !== 0;
 
     let surelyOnFirstClick = this.grid.isFirstStep;
     let surelyWithoutSheep = adjacentSheep === 0;
     let likelyWithFewSheep = likely && adjacentSheep < 2;
-    let probablyWithSomeSheep = somewhatLikely && adjacentSheep >= 2 && adjacentSheep < 4;
-    let maybeWithManySheep = somewhatLikely && adjacentSheep >= 4 && adjacentSheep < 5;
+    let probablyWithSomeSheep = luckily && adjacentSheep >= 2 && adjacentSheep < 4;
+    let maybeWithManySheep = luckily && adjacentSheep >= 4 && adjacentSheep < 5;
     let unlikelyWithTonsOfSheep = luckily && adjacentSheep >= 5 && adjacentSheep < 8;
 
     let shouldExplore = (
@@ -124,7 +124,9 @@ class GrassSquare extends Square {
       unlikelyWithTonsOfSheep);
 
     if (shouldExplore) {
-      for (let directionCombo of GRASS_EXPLORATION_DIRECTIONS) {
+      let directions = GRASS_EXPLORATION_DIRECTIONS.slice();
+      shuffle(directions);
+      for (let directionCombo of directions) {
         let explored = exploreGrass(directionCombo, this, this.grid);
         this.grid.isFirstStep = false;
       }
@@ -193,12 +195,12 @@ const SHEEP_LOOKUP_DIRECTIONS = new Set([
   'W',
 ]);
 
-const GRASS_EXPLORATION_DIRECTIONS = new Set([
+const GRASS_EXPLORATION_DIRECTIONS = [
   'N',
   'E',
   'S',
   'W',
-]);
+];
 
 const DIRECTION_MOVEMENTS = {
   'E': ([x, y]) => [x + 1, y],
