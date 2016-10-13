@@ -9,21 +9,28 @@ class App extends Component {
 
     this.state = {
       grid: new GridOfSquares(14, 14),
+      step: 0,
       score: {},
     };
 
     this.onItemDiscovery = this.onItemDiscovery.bind(this);
+    this.onStep = this.onStep.bind(this);
     this.start = this.start.bind(this);
+    this.updateSheepWalkComponent = this.updateSheepWalkComponent.bind(this);
   }
 
   render() {
     return (
       <div className="Game">
-        <SheepWalk grid={this.state.grid} onItemDiscovery={this.onItemDiscovery} />
+        <SheepWalk
+          grid={this.state.grid}
+          onStep={this.onStep}
+          onItemDiscovery={this.onItemDiscovery}
+          ref={(c) => this.updateSheepWalkComponent(c)} />
         <div className="Dashboard"
             style={{flexBasis: '15vh', display: 'flex', flexFlow: 'row nowrap'}}>
-          <Score score={this.state.score} />
-          <Controls onStart={this.start} />
+          <Score score={this.state.score} step={this.state.step} />
+          <Controls onStart={this.start} canRestart={this.state.step !== 0} />
         </div>
       </div>
     )
@@ -32,6 +39,7 @@ class App extends Component {
   start() {
     this.setState({
       grid: new GridOfSquares(14, 14),
+      step: 0,
       score: {}
     });
   }
@@ -45,6 +53,34 @@ class App extends Component {
     }
     this.setState({score: score});
   }
+
+  updateSheepWalkComponent(component) {
+    if (this.initiallyExposedSquare && component) {
+      component.onExposure(this.initiallyExposedSquare);
+      this.initiallyExposedSquare = undefined;
+    }
+  }
+
+  onStep(coords) {
+    if (this.state.step === 0 && this.state.score['🐑']) {
+      let newGrid;
+      let squareType;
+      let square;
+
+      while (squareType !== '🌱') {
+        newGrid = new GridOfSquares(14, 14);
+        square = newGrid.getSquareAt(coords);
+        squareType = square.type;
+      };
+
+      this.setState({grid: newGrid, step: 1, score: {}});
+      this.initiallyExposedSquare = square;
+      square.expose();
+
+    } else {
+      this.setState({step: this.state.step + 1});
+    }
+  }
 }
 
 class Controls extends Component {
@@ -55,7 +91,7 @@ class Controls extends Component {
   render() {
     return (
       <div className="Controls">
-        <button onClick={this.onClick}>Restart</button>
+        <button disabled={!this.props.canRestart} onClick={this.onClick}>New pasture</button>
       </div>
     )
   }
@@ -67,17 +103,32 @@ class Controls extends Component {
 class Score extends Component {
   render() {
     return (
-      <div className="Score">
-        {Object.keys(this.props.score).map(key => (
-          <span key={key} className="ScoreItem">
-            <span>{key}</span>
+      <div className="Score" style={{opacity: this.props.step > 0 ? '1' : '0'}}>
+        <div style={{display: Object.keys(this.props.score).length > 0 ? 'block' : 'none'}}>
+          <div>Inventory:</div>
+          {Object.keys(this.props.score).map(key => (
+            <span key={key} className="ScoreItem">
+              <span>{key}</span>
+              &ensp;
+              <strong>{this.props.score[key]}</strong>
+              &emsp;
+            </span>
+          ))}
+        </div>
+        <div style={{display: this.props.step >= 1 ? 'block' : 'none'}}>
+          <span>
+            <span>Step</span>
             &ensp;
-            <span>{this.props.score[key]}</span>
-            &emsp;
-            {key === '🐑' ? 'You have found the sheep!' : ''}
-            &emsp;
+            <strong>{this.props.step}</strong>
           </span>
-        ))}
+          &emsp;
+          <span><strong>{this.props.score['🌱']}</strong> squares of pasture have been uncovered. </span>
+        </div>
+        <div style={{display: this.props.score['🐑'] >= 1 ? 'block' : 'none'}}>
+          <span>You have found the sheep.</span>
+          <br />
+          <span>The sheep are alarmed.</span>
+        </div>
       </div>
     );
   }
@@ -103,7 +154,8 @@ class SheepWalk extends Component {
             square={square}
             grid={this.props.grid}
             exposed={this.state.exposedSquares.has(square)}
-            onExposure={this.onExposure} />
+            onExposure={this.onExposure}
+            onStep={this.props.onStep} />
         ))}
       </div>
     );
@@ -121,16 +173,16 @@ class SheepWalk extends Component {
     }
     */
     // window.setTimeout(() => {
-      let exposedSquares = new Set(this.state.exposedSquares);
+    let exposedSquares = new Set(this.state.exposedSquares);
 
-      this.props.grid.squares.forEach((square) => {
-        if (square.exposed && !this.state.exposedSquares.has(square)) {
-          exposedSquares.add(square);
-          this.props.onItemDiscovery(square.type);
-        }
-      });
+    this.props.grid.squares.forEach((square) => {
+      if (square.exposed && !this.state.exposedSquares.has(square)) {
+        exposedSquares.add(square);
+        this.props.onItemDiscovery(square.type);
+      }
+    });
 
-      this.setState({exposedSquares: exposedSquares});
+    this.setState({exposedSquares: exposedSquares});
     // }, 10);
   }
 }
@@ -152,8 +204,13 @@ class Square extends Component {
     return `Square ${this.props.exposed ? 'exposed' : 'hidden'} ${this.props.square.type}`
   }
   onClick() {
-    this.props.square.expose();
-    this.props.onExposure(this.props.square);
+    if (!this.props.square.exposed) {
+      this.props.grid.stopExploring = false;
+      this.props.grid.currentExplorationCounter = 0;
+      this.props.square.expose();
+      this.props.onExposure(this.props.square);
+      this.props.onStep([this.props.square.x, this.props.square.y]);
+    }
   }
   render() {
     return (
