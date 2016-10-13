@@ -144,13 +144,12 @@ class Square extends Component {
     return {
       width: '' + 100 / this.props.grid.width + '%',
       height: '' + 100 / this.props.grid.height + '%',
-      backgroundColor: this.props.exposed ? 'transparent' : '#efefef',
       cursor: this.props.exposed ? 'default' : 'pointer',
       fontSize: '' + this.props.grid.width / 4.2 + 'vmin',
     };
   }
   getCssClass() {
-    return `Square ${this.props.exposed ? 'exposed' : 'hidden'}`
+    return `Square ${this.props.exposed ? 'exposed' : 'hidden'} ${this.props.square.type}`
   }
   onClick() {
     this.props.square.expose();

@@ -75,8 +75,28 @@
 }
 
 .Square.exposed {
-  border: 2px solid white;
+  box-shadow: 0 0 1px 0 white;
+}
+.Square.exposed > div {
+  border-radius: 50%;
+  width: 5vmin;
+  height: 5vmin;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.Square.exposed.🐑 {
+  background-color: rgba(255, 255, 200, 0.2);
+}
+.Square.exposed.🌱 {
+  background-color: rgba(220, 255, 255, 0.2);
 }
 .Square.hidden {
-  box-shadow: inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.5), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,1);
+  background-color: #efefef;
+  box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.2), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,0.4);
+}
+.Square.hidden:hover {
+  background-color: #f4f4f4;
+  box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.6), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,1);
 }
