@@ -15,7 +15,8 @@
   align-items: center;
   justify-content: stretch;
   box-sizing: border-box;
-  background: url(farmer.png) repeat;
+  background: url(green_cup.png) repeat;
+  background: silver;
   background-attachment: fixed;
 }
 
@@ -26,6 +27,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .Dashboard, .Dashboard button {
@@ -50,6 +52,15 @@
   padding: 1em;
   width: 100%;
   height: 100%;
+
+  border: 0;
+  background-color: royalblue;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+.Controls button[disabled] {
+  opacity: 0.4;
 }
 
 .Grid {
@@ -73,7 +84,12 @@
   justify-content: center;
   align-items: center;
 }
-
+.Square > div {
+  transition: opacity .075s linear;
+}
+.Square.🐑 > div {
+  transition: opacity 0.075s linear;
+}
 .Square.exposed {
   box-shadow: 0 0 1px 0 white;
 }
@@ -85,21 +101,20 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  transition: opacity .2s linear;
 }
+
 .Square.exposed.🐑 {
   background-color: rgba(255, 255, 200, 0.2);
 }
 .Square.exposed.🌱 {
-  background-color: rgba(220, 255, 255, 0.2);
+  background-color: rgba(230, 255, 215, 0.3);
 }
 .Square.hidden {
   background-color: rgba(255, 255, 255, 0.5);
-  transition: box-shadow .2s linear, background-color .2s linear;
-   box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.6), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,1);
+  transition: box-shadow .1s linear, background-color .1s linear;
+  box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.6), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,0.4);
 }
   /*box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.2), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,0.4);*/
 
 .Square.hidden:hover {
-  background-color: rgba(255, 255, 255, 0.35);
  }
