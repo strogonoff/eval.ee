@@ -104,12 +104,6 @@ class Dashboard extends Component {
     return (
       <div className="Dashboard">
         <div style={{display: this.props.step >= 1 ? 'block' : 'none'}}>
-          <span>
-            <span>Day</span>
-            &ensp;
-            <strong>{this.props.step}.</strong>
-          </span>
-          &emsp;
           <span style={{display: this.props.score['🐑'] >= 1 ? 'inline' : 'none'}}>
             <span>You’ve discovered <strong>sheep</strong>.</span>
             &emsp;
@@ -118,24 +112,30 @@ class Dashboard extends Component {
             <a href="javascript: void 0;" onClick={this.props.onStart}>Go to new pasture!</a>
           </span>
           <span style={{display: this.props.score['🐑'] >= 1 ? 'none' : 'inline'}}>
-            <span>You explored some <strong>pasture</strong>.</span>
+            <span>You’ve explored some <strong>pasture</strong>.</span>
           </span>
         </div>
         <div style={{display: Object.keys(this.props.score).length > 0 ? 'block' : 'none'}}>
-          <span>Inventory:</span>
+          <small title="Day">
+            <span>☀️</span>
+            &ensp;
+            <strong>{this.props.step}</strong>
+          </small>
           &emsp;
-          {Object.keys(this.props.score).map(key => (
-            <span key={key} className="ScoreItem">
-              <span>{key}</span>
-              &ensp;
-              <strong>{this.props.score[key]}</strong>
-              &emsp;
-            </span>
-          ))}
+          <small title="Inventory">
+            {Object.keys(this.props.score).map(key => (
+              <span key={key} className="ScoreItem">
+                <span>{key}</span>
+                &ensp;
+                <strong>{this.props.score[key]}</strong>
+                &emsp;
+              </span>
+            ))}
+          </small>
         </div>
         <div style={{display: this.props.step === 0 ? 'block' : 'none'}}>
-          <div>Welcome to Sheepsweeper v0.5!</div>
-          <div>Click anywhere to begin.</div>
+          <div>Welcome to <strong>Sheepsweeper v0.5!</strong></div>
+          <div><small>Click anywhere to begin.</small></div>
         </div>
       </div>
     );

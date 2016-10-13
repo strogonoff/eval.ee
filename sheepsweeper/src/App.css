@@ -12,14 +12,13 @@
   display: flex;
   flex: 1;
   flex-flow: column nowrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: stretch;
-  padding-left: 10vmin;
-  padding-top: 10vmin;
+  padding-top: 5vmin;
   box-sizing: border-box;
-  background: url(farmer.png) repeat;
+  background: url(farmer.png) repeat 50% 50%;
+  background-size: 50vmin;
   background-attachment: fixed;
-  font-family: sans-serif;
 }
 
 .Dashboard {
@@ -28,8 +27,8 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
-  font-size: 2.5vmin;
+  width: 80vmin;
+  font-size: 2.8vmin;
   line-height: 1.4;
   white-space: nowrap;
 }
@@ -39,14 +38,15 @@
 }
 
 .Grid {
+  font-family: sans-serif;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   margin: 0em;
-  height: 75vmin;
-  width: 75vmin;
+  height: 80vmin;
+  width: 80vmin;
   border-radius: 2vmin;
 }
 
