@@ -27,11 +27,10 @@ class App extends Component {
           onStep={this.onStep}
           onItemDiscovery={this.onItemDiscovery}
           ref={(c) => this.updateSheepWalkComponent(c)} />
-        <div className="Dashboard"
-            style={{flexBasis: '15vh', display: 'flex', flexFlow: 'row nowrap'}}>
-          <Score score={this.state.score} step={this.state.step} />
-          <Controls onStart={this.start} canRestart={this.state.step !== 0} />
-        </div>
+        <Dashboard
+          score={this.state.score}
+          step={this.state.step}
+          onStart={this.start} />
       </div>
     )
   }
@@ -100,12 +99,31 @@ class Controls extends Component {
   }
 }
 
-class Score extends Component {
+class Dashboard extends Component {
   render() {
     return (
-      <div className="Score" style={{opacity: this.props.step > 0 ? '1' : '0'}}>
+      <div className="Dashboard">
+        <div style={{display: this.props.step >= 1 ? 'block' : 'none'}}>
+          <span>
+            <span>Day</span>
+            &ensp;
+            <strong>{this.props.step}.</strong>
+          </span>
+          &emsp;
+          <span style={{display: this.props.score['🐑'] >= 1 ? 'inline' : 'none'}}>
+            <span>You’ve discovered <strong>sheep</strong>.</span>
+            &emsp;
+            <span>The <strong>sheep</strong> are alarmed.</span>
+            &emsp;
+            <a href="javascript: void 0;" onClick={this.props.onStart}>Go to new pasture!</a>
+          </span>
+          <span style={{display: this.props.score['🐑'] >= 1 ? 'none' : 'inline'}}>
+            <span>You explored some <strong>pasture</strong>.</span>
+          </span>
+        </div>
         <div style={{display: Object.keys(this.props.score).length > 0 ? 'block' : 'none'}}>
-          <div>Inventory:</div>
+          <span>Inventory:</span>
+          &emsp;
           {Object.keys(this.props.score).map(key => (
             <span key={key} className="ScoreItem">
               <span>{key}</span>
@@ -115,19 +133,9 @@ class Score extends Component {
             </span>
           ))}
         </div>
-        <div style={{display: this.props.step >= 1 ? 'block' : 'none'}}>
-          <span>
-            <span>Step</span>
-            &ensp;
-            <strong>{this.props.step}</strong>
-          </span>
-          &emsp;
-          <span><strong>{this.props.score['🌱']}</strong> squares of pasture have been uncovered. </span>
-        </div>
-        <div style={{display: this.props.score['🐑'] >= 1 ? 'block' : 'none'}}>
-          <span>You have found the sheep.</span>
-          <br />
-          <span>The sheep are alarmed.</span>
+        <div style={{display: this.props.step === 0 ? 'block' : 'none'}}>
+          <div>Welcome to Sheepsweeper v0.5!</div>
+          <div>Click anywhere to begin.</div>
         </div>
       </div>
     );
@@ -162,17 +170,6 @@ class SheepWalk extends Component {
   }
 
   onExposure(square) {
-    /*
-    let exposedSquares = new Set(this.state.exposedSquares);
-
-    if (!exposedSquares.has(square)) {
-      exposedSquares.add(square);
-      this.props.onItemDiscovery(square.type);
-
-      this.setState({exposedSquares: exposedSquares});
-    }
-    */
-    // window.setTimeout(() => {
     let exposedSquares = new Set(this.state.exposedSquares);
 
     this.props.grid.squares.forEach((square) => {
@@ -183,7 +180,6 @@ class SheepWalk extends Component {
     });
 
     this.setState({exposedSquares: exposedSquares});
-    // }, 10);
   }
 }
 
