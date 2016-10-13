@@ -85,6 +85,7 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  transition: opacity .2s linear;
 }
 .Square.exposed.🐑 {
   background-color: rgba(255, 255, 200, 0.2);
@@ -93,10 +94,12 @@
   background-color: rgba(220, 255, 255, 0.2);
 }
 .Square.hidden {
-  background-color: #efefef;
-  box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.2), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,0.4);
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: box-shadow .2s linear, background-color .2s linear;
+   box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.6), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,1);
 }
+  /*box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.2), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,0.4);*/
+
 .Square.hidden:hover {
-  background-color: #f4f4f4;
-  box-shadow: 0 0 1px 0 white, inset 0 -0.2vmin 0.8vmin -0.4vmin rgba(0,0,0,0.6), inset -0.6vmin 0.4vmin 0.8vmin -0.4vmin rgba(255,255,255,1);
-}
+  background-color: rgba(255, 255, 255, 0.35);
+ }
