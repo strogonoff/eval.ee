@@ -208,16 +208,23 @@ class Square extends Component {
       this.props.onStep([this.props.square.x, this.props.square.y]);
     }
   }
+  renderExposedSquareContents() {
+    if (this.props.square.type === '🐑') {
+      return <SheepSquare />;
+    } else {
+      return <GrassSquare count={this.props.grid.countSheepSquaresAdjacentTo(this.props.square)} />;
+    }
+  }
   render() {
     return (
       <div
         className={this.getCssClass()}
         style={this.getStyle()}
         onClick={this.onClick}>
-        <div style={{opacity: this.props.exposed ? 1 : 0}}>
-          {this.props.square.type === '🐑' ?
-            <SheepSquare /> :
-            <GrassSquare count={this.props.grid.countSheepSquaresAdjacentTo(this.props.square)} />}
+        <div>
+          {this.props.exposed ? this.renderExposedSquareContents() : (
+            <div></div>
+          )}
         </div>
       </div>
     )
