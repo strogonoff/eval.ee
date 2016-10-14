@@ -66,7 +66,6 @@
   align-items: center;
   justify-content: center;
   border-radius: 0;
-  transition: box-shadow .12s linear;
 }
 .Square.exposed > div {
   background-color: rgba(200, 255, 200, 0.2);

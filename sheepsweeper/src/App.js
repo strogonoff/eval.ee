@@ -82,47 +82,35 @@ class App extends Component {
   }
 }
 
-class Controls extends Component {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-  render() {
-    return (
-      <div className="Controls">
-        <button disabled={!this.props.canRestart} onClick={this.onClick}>New pasture</button>
-      </div>
-    )
-  }
-  onClick() {
-    this.props.onStart();
-  }
-}
 
 class Dashboard extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <div style={{display: this.props.step >= 1 ? 'block' : 'none'}}>
-          <span style={{display: this.props.score['🐑'] >= 1 ? 'inline' : 'none'}}>
+        <div>
+          <small style={{display: this.props.score['🐑'] >= 1 ? 'inline' : 'none'}}>
             <span>You’ve discovered <strong>sheep</strong>.</span>
             &emsp;
             <span>The <strong>sheep</strong> are alarmed.</span>
             &emsp;
             <a href="javascript: void 0;" onClick={this.props.onStart}>Go to new pasture!</a>
-          </span>
-          <span style={{display: this.props.score['🐑'] >= 1 ? 'none' : 'inline'}}>
-            <span>You’ve explored some <strong>pasture</strong>.</span>
-          </span>
+          </small>
+          <small style={{display: this.props.score['🌱'] >= 1 && !this.props.score['🐑'] ? 'inline' : 'none'}}>
+            <span style={{display: this.props.step === 1 ? 'inline' : 'none'}}>You’ve explored some <strong>grass</strong>!</span>
+            <span style={{display: this.props.step > 1 ? 'inline' : 'none'}}>You’ve explored more <strong>grass</strong>.</span>
+          </small>
+          <small style={{display: Object.keys(this.props.score).length < 1 ? 'inline' : 'none'}}>
+            <span>Welcome to <strong>Sheepsweeper v0.6</strong>! Punch a square.</span>
+          </small>
         </div>
-        <div style={{display: Object.keys(this.props.score).length > 0 ? 'block' : 'none'}}>
-          <small title="Day">
+        <div>
+          <span title="Day">
             <span>☀️</span>
             &ensp;
             <strong>{this.props.step}</strong>
-          </small>
+          </span>
           &emsp;
-          <small title="Inventory">
+          <span title="Inventory" style={{display: Object.keys(this.props.score).length > 0 ? 'inline' : 'none'}}>
             {Object.keys(this.props.score).map(key => (
               <span key={key} className="ScoreItem">
                 <span>{key}</span>
@@ -131,11 +119,7 @@ class Dashboard extends Component {
                 &emsp;
               </span>
             ))}
-          </small>
-        </div>
-        <div style={{display: this.props.step === 0 ? 'block' : 'none'}}>
-          <div>Welcome to <strong>Sheepsweeper v0.5!</strong></div>
-          <div><small>Click anywhere to begin.</small></div>
+          </span>
         </div>
       </div>
     );
