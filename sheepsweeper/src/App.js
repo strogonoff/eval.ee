@@ -91,8 +91,10 @@ class Dashboard extends Component {
           <small style={{display: this.props.score['🐑'] >= 1 ? 'inline' : 'none'}}>
             <span>You’ve discovered <strong>sheep</strong>.</span>
             &emsp;
+            &#8203;
             <span>The <strong>sheep</strong> are alarmed.</span>
             &emsp;
+            &#8203;
             <a href="javascript: void 0;" onClick={this.props.onStart}>Go to new pasture!</a>
           </small>
           <small style={{display: this.props.score['🌱'] >= 1 && !this.props.score['🐑'] ? 'inline' : 'none'}}>
