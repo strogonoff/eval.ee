@@ -1,0 +1,35 @@
+given_name: Eva
+family_name: Eva Lee
+additional_name: Wanyin
+full_name: Eva Lee
+job_title: Illustrator
+tagline: making small art things
+phone_number: +82 (0) 10-667-8632
+
+email_encoded: uNxV7uV607y66@R97by.uN9
+key: UFIqKZihdTswe7pY0nguDO9XAGEPjbSl5rt6oM8zxRWkfBLCH4J1aQyv2VcN3m
+
+social:
+  links:
+    - https://www.facebook.com/profile.php?id=728065544
+    - https://www.instagram.com/evaleewanyin/
+    - https://evaleeeeee.tumblr.com/
+google_site_verification: kmX24m9pR0-XZ4V1eQGhFWhY08O6Ey5nxqHD-whKAT0
+
+url: https://eval.ee/ 
+
+# Language in the format outlined here:
+# https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
+language: en
+
+theme: jekyll-theme-eva
+
+plugins:
+  - jekyll-responsive-image
+
+responsive_image:
+  template: _includes/_responsive_image.html
+  sizes:
+    - width: 480  # [Required] How wide the resized image will be.
+      quality: 80 # [Optional] Overrides default_quality for this size.
+    - width: 800

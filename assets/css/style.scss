@@ -1,0 +1,146 @@
+---
+---
+
+$color-primary: #2A73D4;
+
+
+@import 'jekyll-theme-eva';
+
+
+/* SHEEP */
+
+@keyframes sheep-leave-home {
+    0% { transform: translateY(-204px) translateX(29px); }
+    15% { transform: translateY(-204px) translateX(300px); }
+    100% { transform: translateY(300px) translateX(300px); }
+}
+@keyframes sheep-arrive-album {
+    0% { transform: translateY(300px) translateX(300px); }
+    65% { transform: translateY(300px) translateX(-300px); }
+    100% { transform: translateY(26px) translateX(-275px) scale(0.73); }
+}
+@keyframes sheep-leave-album {
+    0% { transform: translateY(26px) translateX(-275px) scale(0.73); }
+    20% { opacity: 0; }
+    70% { transform: translateY(-1000px) translateX(400px) scale(0.6); opacity: 0; }
+    100% { transform: translateY(-1000px) translateX(400px) scale(0.6); opacity: 0; }
+}
+@keyframes sheep-arrive-home {
+    0% { transform: translateY(-204px) translateX(29px) scale(1); }
+    100% { transform: translateY(-134px) translateX(180px) scale(0.9); }
+}
+@keyframes sheep-flip {
+    100% { transform: none; }
+}
+@keyframes sheeprotate {
+    0% { transform: rotate(0); }
+    33% { transform: rotate(-2deg); }
+    66% { transform: rotate(3deg); }
+    100% { transform: rotate(0); }
+}
+@keyframes cloudpassing {
+    0% { opacity: 0; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(40%); }
+    100% { opacity: 0.4; transform: translateX(130%); }
+}
+
+.sheepflight {
+    position: absolute;
+    width: 532px;
+    height: 542px;
+    left: calc(50% - 532px/2 - 417px);
+    top: calc(50% - 542px/2 - 118px);
+
+    overflow: hidden;
+
+    transition-property: height width left top;
+    transition-duration: .02s;
+    transition-delay: 1s;
+
+    mix-blend-mode: luminosity;
+
+    body.layout-album & {
+        width: 462px;
+        left: 0;
+        top: 0;
+        height: 187px;
+
+        @media screen and (max-width: $w-bp) {
+            width: auto;
+            right: 0;
+        }
+        @media screen and (min-height: $h-bp2) {
+            height: calc(50% - 167px/2 - 408.5px + 167px);
+        }
+    }
+
+    .cloudtrack {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 218px;
+        height: 56.3px;
+
+        transform: translateX(0);
+        animation: cloudpassing 20s linear;
+        animation-delay: 5s;
+
+        body.layout-album & {
+            display: none;
+            animation: none;
+        }
+    }
+    .cloud {
+        position: absolute;
+        top: 0;
+        left: -126.8px;
+        width: 126.8px;
+        height: 56.3px;
+    }
+    .movablesheep {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+
+        transform-origin: bottom right;
+
+        body.layout-home & {
+            animation: sheep-arrive-home 2s reverse forwards;
+        }
+        body.layout-home.out & {
+            animation: sheep-leave-home 2s ease-in forwards;
+        }
+        body.layout-album & {
+            animation: sheep-arrive-album 2s ease-out forwards;
+        }
+        body.layout-album.out & {
+            animation: sheep-leave-album 1.2s ease-in forwards;
+        }
+
+        body.layout-home & {
+            opacity: 0.7;
+        }
+    }
+    .rotatablesheep {
+        transform-origin: 90px 30px;
+        transition: transform;
+        animation: sheeprotate 10s infinite;
+
+        body.layout-album & {
+            transform-origin: 40px 30px;
+            animation: none;
+        }
+    }
+    .sheep {
+        width: 122px;
+        height: 232px;
+
+        transform: matrix(-1, 0, 0, 1, 0, 0);
+
+        body.layout-album & {
+            animation: sheep-flip .2s forwards;
+            animation-delay: 1s;
+        }
+    }
+}
