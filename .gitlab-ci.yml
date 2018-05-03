@@ -32,6 +32,7 @@ deploy:
   image: python:latest
   before_script:
   - pip install awscli
+  - rm -rf _site/node_modules
   script:
   - aws s3 cp _site/ s3://$S3_BUCKET_NAME/ --recursive
   after_script:
