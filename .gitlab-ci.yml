@@ -18,11 +18,11 @@ build-jekyll:
 build-npm:
   stage: build-npm
   image: node:9
-  before_script:
+  script:
+  - cd _site
   - npm init --yes
   - npm install webpack webpack-cli jquery
-  script:
-  - npx webpack --output-path _site/assets/
+  - npx webpack --output-path assets/
   artifacts:
     paths:
     - _site/
