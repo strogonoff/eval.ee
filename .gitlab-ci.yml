@@ -19,7 +19,7 @@ build-npm:
   stage: build-npm
   image: node:9
   before_script:
-  - npm install
+  - npm install webpack webpack-cli jquery
   script:
   - npx webpack --output-path _site/assets/
   artifacts:
