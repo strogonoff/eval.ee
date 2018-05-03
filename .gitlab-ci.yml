@@ -1,15 +1,27 @@
 stages:
-- build
+- build-jekyll
+- build-npm
 - deploy
 
-build:
-  stage: build
+build-jekyll:
+  stage: build-jekyll
   image: ruby:2.4.4
   before_script:
   - gem install jekyll bundler
   - bundle
   script:
   - bundle exec jekyll build
+  artifacts:
+    paths:
+    - _site/
+
+build-npm:
+  stage: build-npm
+  image: node:9
+  before_script:
+  - npm install
+  script:
+  - npx webpack --output-path _site/assets/
   artifacts:
     paths:
     - _site/
