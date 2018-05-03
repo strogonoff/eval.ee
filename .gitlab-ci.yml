@@ -5,9 +5,8 @@ stages:
 
 build-jekyll:
   stage: build-jekyll
-  image: ruby:2.4.4
+  image: jekyll/jekyll:3.8
   before_script:
-  - gem install jekyll bundler
   - bundle
   script:
   - bundle exec jekyll build
