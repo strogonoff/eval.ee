@@ -2,8 +2,8 @@ Jekyll::Hooks.register :site, :after_init do |site|
   unless (File.file?("package.json") and File.directory?("node_modules"))
     p "-- Eva: Initializing Node package…"
 
-    system("npm init --yes")
-    system("npm install webpack webpack-cli jquery")
+    `npm init --yes`
+    `npm install webpack webpack-cli jquery`
   end
 
   if site.theme
