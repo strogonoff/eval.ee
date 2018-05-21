@@ -2,5 +2,8 @@ name: inks
 title: Inks
 description: Artwork drawn with ink on paper.
 priority: 2
+seo:
+  description: Ink & paper works
+
 home_nav_icon_style: full-bleed
 artwork_list_style: full-bleed one-column

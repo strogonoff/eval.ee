@@ -2,5 +2,8 @@ name: vectors
 title: Vectors
 description: These were created using Pen tool in Photoshop.
 priority: 1
+seo:
+  description: Digital vector works
+
 home_nav_icon_style: inset
 artwork_list_style: inset multi-column
