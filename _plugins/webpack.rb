@@ -3,7 +3,7 @@ Jekyll::Hooks.register :site, :after_init do |site|
     p "-- Eva: Initializing Node package…"
 
     system("npm init --yes")
-    system("npm install webpack webpack-cli jquery")
+    system("npm install webpack-cli webpack jquery")
   end
 
   if site.theme
